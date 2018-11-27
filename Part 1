@@ -1,0 +1,66 @@
+#This is the code I have so far for part 1
+
+#Group Project
+
+#Part 1 - Lotka Volterra Model
+
+library(deSolve)
+library(ggplot2)
+
+
+ddSim<-function(t,y,p){
+  N=y
+  r=p[1]
+  K=p[2]
+  
+  dNdt=r*(1-N/K)*N
+  return(list(dNdt))
+}
+params=c(0.2,100)
+N0=2
+times=1:100
+modelSim=ode(y=N0,times=times,func=ddSim,parms=params)
+modelOutput=data.frame(time=modelSim[,1],N=modelSim[,2])
+ggplot(modelOutput,aes(x=time,y=N))+geom_line()+theme_classic()
+
+#custom function defined
+LVSim<-function(t,y,p){
+  #unpack state variables from list y
+  H=y[1]
+  P=y[2]
+  
+  #define parameters
+  b=p[1]
+  a=p[2]
+  e=p[3]
+  s=p[4]
+  
+  #calculate change in state variables
+  dHdt=(b*H)-(a*P*H)
+  dPdt=(e*a*P*H)-(s*P)
+  
+  #return list containing each change in state variables with time
+  return(list(c(dHdt,dPdt)))
+}
+
+#Stimulate model with one set of parameter values
+
+#Define initial state variable values
+N0=c(25,5)
+
+#Define initial parameters
+params_initial=c(0.5,0.02,0.1,0.2)
+times=1:100
+
+
+sim_initial=ode(y=y0,times=times,func=LVSim,parms=params_initial)
+out_initial=data.frame(time=sim_initial[,1],herbivore=sim_initial[,2],prey=sim_initial[,3])
+
+LVplot=ggplot(out_initial,aes(x=time,y=herbivore))+geom_line()+geom_line(data=out_initial,mapping=aes(x=time,y=prey),col='red')+theme_classic()
+print(LVplot)
+
+#Changing parameters to simulate model dynamics
+
+i=2
+
+#Make list of parameters
