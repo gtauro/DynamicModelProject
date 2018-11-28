@@ -65,3 +65,10 @@ for(i in 1:nrow(parameters2)){
   modelSim2 = ode(y=NO, times = times, func = ddSim, parms = params)
   modelSimList[[i]] = data.frame(time = modelSim2[,1], prey=modelSim2[,2], pred=modelSim2[,3])
 }
+
+for(j in 1:length(modelSimList)){
+  plot <- modelSimList[[j]] %>%
+    gather(key,value, prey, pred) %>%
+    ggplot(aes(x=time, y=value, color=key)) + geom_line()
+  print(plot)
+}
