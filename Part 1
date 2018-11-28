@@ -61,8 +61,6 @@ print(LVplot)
 
 #Changing parameters to simulate model dynamics
 
-i=2
-
 #Make list of parameters
 
 parameters_new = data.frame("b"=c(.5,.25,1,.5,.5,.5,.5,.5,.5), 
