@@ -64,3 +64,14 @@ print(LVplot)
 i=2
 
 #Make list of parameters
+
+params = c(b,a,e,s)
+b=list(c(b,b/i,b*i,b,b,b,b,b,b))
+a=list(c(a,a,a,a/i,a*i,a,a,a,a))
+e=list(c(e,e,e,e,e,e/i,e*i,e,e))
+s=list(c(s,s,s,s,s,s,s,s/i,s*i))
+
+parameters_new = data.frame("b"=c(.5,.25,1,.5,.5,.5,.5,.5,.5), 
+                         "a"=c(.02,.02,.02,.01,.04,.02,.02,.02,.02),
+                         "e"=c(.1,.1,.1,.1,.1,.05,.2,.1,.1),
+                         "s"=c(.2,.2,.2,.2,.2,.2,.2,.1,.4))
