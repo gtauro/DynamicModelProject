@@ -46,15 +46,15 @@ LVSim<-function(t,y,p){
 #Stimulate model with one set of parameter values
 
 #Define initial state variable values
-N0=c(25,5)
+N0 = c(25,5)
 
 #Define initial parameters
-params_initial=c(0.5,0.02,0.1,0.2)
-times=1:100
+params_initial = c(0.5,0.02,0.1,0.2)
+times = seq(0,100, by = .1)
 
 
-sim_initial=ode(y=y0,times=times,func=LVSim,parms=params_initial)
-out_initial=data.frame(time=sim_initial[,1],herbivore=sim_initial[,2],prey=sim_initial[,3])
+sim_initial = ode(y=N0,times=times,func=LVSim,parms=params_initial)
+out_initial = data.frame(time=sim_initial[,1],herbivore=sim_initial[,2],prey=sim_initial[,3])
 
 LVplot=ggplot(out_initial,aes(x=time,y=herbivore))+geom_line()+geom_line(data=out_initial,mapping=aes(x=time,y=prey),col='red')+theme_classic()
 print(LVplot)
