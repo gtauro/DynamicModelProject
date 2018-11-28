@@ -70,3 +70,21 @@ parameters_new = data.frame("b"=c(.5,.25,1,.5,.5,.5,.5,.5,.5),
 
 modelH_Output=data.frame("t", "H", "bHhig", "bHlow", "aHhigh", "aHlow", "eHhigh", "eHlow", "sHhigh", "sHlow")
 modelP_Output=data.frame("t", "P", "bPhigh", "bPlow", "aPhigh", "aPlow", "ePhigh", "ePlo", "sPhigh", "sPlow")
+
+modelH_Output[modelH_Output$X.t.==times]
+modelP_Output[modelP_Output$X.t.==times]
+
+modelSimList = list()
+
+for(i in 1:nrow(parameters2)){
+  params = parameters2[i,]
+  modelSim2 = ode(y=NO, times = times, func = ddSim, parms = params)
+  modelSimList[[i]] = data.frame(time = modelSim2[,1], prey=modelSim2[,2], pred=modelSim2[,3])
+}
+
+for(j in 1:length(modelSimList)){
+  plot <- modelSimList[[j]] %>%
+    gather(key,value, prey, pred) %>%
+    ggplot(aes(x=time, y=value, color=key)) + geom_line()
+  print(plot)
+}
