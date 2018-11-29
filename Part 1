@@ -57,13 +57,11 @@ times = seq(0,100, by = .1)
 
 
 sim_initial = ode(y=N0,times=times,func=LVSim,parms=params_initial)
-out_initial = data.frame(time=sim_initial[,1],herbivore=sim_initial[,2],prey=sim_initial[,3])
+out_initial = data.frame(time=sim_initial[,1],herbivore=sim_initial[,2],pred=sim_initial[,3])
 
 out_initial %>%
-  gather(key,value, herbivore, prey) %>%
+  gather(key,value, herbivore, pred) %>%
   ggplot(aes(x=time, y=value, color=key)) + geom_line()
-#LVplot=ggplot(out_initial,aes(x=time,y=herbivore))+geom_line()+geom_line(data=out_initial,mapping=aes(x=time,y=prey),col='red')+theme_classic()
-#print(LVplot)
 
 #Changing parameters to simulate model dynamics
 
@@ -85,12 +83,12 @@ modelSimList = list()
 for(i in 1:nrow(parameters_new)){
   params = parameters_new[i,]
   modelSim2 = ode(y=N0, times = times, func = LVSim, parms = params)
-  modelSimList[[i]] = data.frame(time = modelSim2[,1], herbivore=modelSim2[,2], prey=modelSim2[,3])
+  modelSimList[[i]] = data.frame(time = modelSim2[,1], herbivore=modelSim2[,2], pred=modelSim2[,3])
 }
 
 for(j in 1:length(modelSimList)){
   plot <- modelSimList[[j]] %>%
-    gather(key,value, herbivore, prey) %>%
+    gather(key,value, herbivore, pred) %>%
     ggplot(aes(x=time, y=value, color=key)) + geom_line()
   print(plot)
 }
