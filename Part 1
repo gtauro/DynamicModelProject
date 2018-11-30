@@ -90,3 +90,48 @@ for(j in 1:length(modelSimList)){
     ggplot(aes(x=time, y=value, color=key)) + geom_line()
   print(plot)
 }
+
+plot <- modelSimList[[1]] %>%
+  gather(key,value, herbivore, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("Base")
+print(plot)
+
+plot <- modelSimList[[2]] %>%
+  gather(key,value, herbivore, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("HighB")
+print(plot)
+
+plot <- modelSimList[[3]] %>%
+  gather(key,value, herbivore, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("LowB")
+print(plot)
+
+plot <- modelSimList[[4]] %>%
+  gather(key,value, herbivore, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("HighA")
+print(plot)
+
+plot <- modelSimList[[5]] %>%
+  gather(key,value, herbivore, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("LowA")
+print(plot)
+
+plot <- modelSimList[[6]] %>%
+  gather(key,value, herbivore, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("HighE")
+print(plot)
+
+plot <- modelSimList[[7]] %>%
+  gather(key,value, herbivore, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("LowE")
+print(plot)
+
+plot <- modelSimList[[8]] %>%
+  gather(key,value, herbivore, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("HighS")
+print(plot)
+
+plot <- modelSimList[[9]] %>%
+  gather(key,value, herbivore, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("LowS")
+print(plot)
