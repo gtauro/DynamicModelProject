@@ -79,7 +79,7 @@ modelP_Output[modelP_Output$X.t.==times]
 modelSimList = list()
 
 for(i in 1:nrow(parameters_new)){
-  params = parameters_new[i,]
+  params = unlist(parameters_new[i,])
   modelSim2 = ode(y=N0, times = times, func = LVSim, parms = params)
   modelSimList[[i]] = data.frame(time = modelSim2[,1], prey=modelSim2[,2], pred=modelSim2[,3])
 }
