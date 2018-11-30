@@ -51,7 +51,7 @@ N0 = c(25,5)
 
 #Define initial parameters
 params_initial = c(0.5,0.02,0.1,0.2)
-times = seq(0,100, by = .1)
+times = seq(0,200, by = .1)
 
 
 sim_initial = ode(y=N0,times=times,func=LVSim,parms=params_initial)
