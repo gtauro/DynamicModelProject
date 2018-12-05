@@ -1,11 +1,12 @@
-#This is the code I have so far for part 1
-
 #Group Project
 
 #Part 1 - Lotka Volterra Model
 
+rm(list = ls())
+
 library(deSolve)
 library(ggplot2)
+library(tidyr)
 
 
 ddSim<-function(t,y,p){
@@ -50,23 +51,81 @@ N0 = c(25,5)
 
 #Define initial parameters
 params_initial = c(0.5,0.02,0.1,0.2)
-times = seq(0,100, by = .1)
+times = seq(0,200, by = .1)
 
 
 sim_initial = ode(y=N0,times=times,func=LVSim,parms=params_initial)
-out_initial = data.frame(time=sim_initial[,1],herbivore=sim_initial[,2],prey=sim_initial[,3])
+out_initial = data.frame(time=sim_initial[,1],prey=sim_initial[,2],pred=sim_initial[,3])
 
-LVplot=ggplot(out_initial,aes(x=time,y=herbivore))+geom_line()+geom_line(data=out_initial,mapping=aes(x=time,y=prey),col='red')+theme_classic()
-print(LVplot)
+out_initial %>%
+  gather(key,value, prey, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line()
 
 #Changing parameters to simulate model dynamics
 
 #Make list of parameters
 
 parameters_new = data.frame("b"=c(.5,.25,1,.5,.5,.5,.5,.5,.5), 
-                         "a"=c(.02,.02,.02,.01,.04,.02,.02,.02,.02),
-                         "e"=c(.1,.1,.1,.1,.1,.05,.2,.1,.1),
-                         "s"=c(.2,.2,.2,.2,.2,.2,.2,.1,.4))
+                            "a"=c(.02,.02,.02,.01,.04,.02,.02,.02,.02),
+                            "e"=c(.1,.1,.1,.1,.1,.05,.2,.1,.1),
+                            "s"=c(.2,.2,.2,.2,.2,.2,.2,.1,.4))
 
-modelH_Output=data.frame("t", "H", "bHhig", "bHlow", "aHhigh", "aHlow", "eHhigh", "eHlow", "sHhigh", "sHlow")
-modelP_Output=data.frame("t", "P", "bPhigh", "bPlow", "aPhigh", "aPlow", "ePhigh", "ePlo", "sPhigh", "sPlow")
+modelSimList = list()
+
+for(i in 1:nrow(parameters_new)){
+  params = unlist(parameters_new[i,])
+  modelSim2 = ode(y=N0, times = times, func = LVSim, parms = params)
+  modelSimList[[i]] = data.frame(time = modelSim2[,1], prey=modelSim2[,2], pred=modelSim2[,3])
+}
+
+for(j in 1:length(modelSimList)){
+  plot <- modelSimList[[j]] %>%
+    gather(key,value, prey, pred) %>%
+    ggplot(aes(x=time, y=value, color=key)) + geom_line()
+  print(plot)
+}
+
+plot <- modelSimList[[1]] %>%
+  gather(key,value, prey, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("Base")
+print(plot)
+
+plot <- modelSimList[[2]] %>%
+  gather(key,value, prey, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("Low B")
+print(plot)
+
+plot <- modelSimList[[3]] %>%
+  gather(key,value, prey, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("High B")
+print(plot)
+
+plot <- modelSimList[[4]] %>%
+  gather(key,value, prey, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("Low A")
+print(plot)
+
+plot <- modelSimList[[5]] %>%
+  gather(key,value, prey, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("High A")
+print(plot)
+
+plot <- modelSimList[[6]] %>%
+  gather(key,value, prey, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("Low E")
+print(plot)
+
+plot <- modelSimList[[7]] %>%
+  gather(key,value, prey, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("High E")
+print(plot)
+
+plot <- modelSimList[[8]] %>%
+  gather(key,value, prey, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("Low S")
+print(plot)
+
+plot <- modelSimList[[9]] %>%
+  gather(key,value, prey, pred) %>%
+  ggplot(aes(x=time, y=value, color=key)) + geom_line() +ggtitle("High S")
+print(plot)
