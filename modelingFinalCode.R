@@ -150,7 +150,7 @@ RMParameters = data.frame(
 
 RMModelSimList = list()  # Creates a list for storage of RM simulations
 
-# Generates a for loop that runs the LV simulation using RMParameters
+# Generates a for loop that runs the RM simulation using RMParameters
 for (i in 1:nrow(RMParameters)) {
   params = unlist(RMParameters[i, ])
   RMModelSim2 = ode(y = N0, times = times, func = RMSim, parms = params)
