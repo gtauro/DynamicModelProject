@@ -1,0 +1,19 @@
+Labeling on the graphs saying what type of graph it is (LV plot etc.) but the actual 
+code is labeled nicely
+
+Some of the plots in the code are done with the standard package and some with ggplot2
+This is correct in the report though
+--revised: they are all in ggplot2 but some have color changes and some include a key and
+other plots don't include a key
+
+Time point should be 200 instead of 100
+
+Need to run multiple plots for the Paradox of Enrichment (in the actual code) it was included
+in the final report
+
+The layout of the questions was really nice!
+
+There needs to be labeling on the conceptual model to describe if it's an increase or decrease in 
+each of the parameters
+
+We really liked the report overall, it was thorough and clear
